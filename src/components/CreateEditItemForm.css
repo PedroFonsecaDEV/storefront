@@ -1,0 +1,4 @@
+.create-edit-item-form-container {
+  display: flex;
+  flex-direction: column;
+}
