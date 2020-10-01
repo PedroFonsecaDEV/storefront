@@ -30,14 +30,13 @@ class App extends Component<State> {
   }
 
   fetchItems() {
-    fetch(API_URL + '/items')
-      .then((response) => {
-        this.setState({ isLoading: true });
-        return response.json();
-      })
-      .then((data) => {
-        this.setState({ items: data, isLoading: false });
-      });
+    this.setState({ isLoading: true }, () => {
+      fetch(API_URL + '/items')
+        .then((response) => response.json())
+        .then((data) => {
+          this.setState({ items: data, isLoading: false });
+        });
+    });
   }
 
   handleEdit(item: Item) {
@@ -45,7 +44,11 @@ class App extends Component<State> {
   }
 
   handleDelete(item: Item) {
-    console.log('Delete: ', item);
+    fetch(API_URL + '/items/' + item._id, { method: 'DELETE' }).then(
+      (response) => {
+        this.fetchItems();
+      }
+    );
   }
 
   handleCreate() {
@@ -62,6 +65,7 @@ class App extends Component<State> {
           <List>
             {this.state.items.map((item) => (
               <ItemListElement
+                key={item._id}
                 item={item}
                 onPressEdit={() => this.handleEdit(item)}
                 onPressDelete={() => this.handleDelete(item)}
