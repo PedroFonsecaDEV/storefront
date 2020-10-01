@@ -27,6 +27,7 @@ class App extends Component<State> {
       isLoading: false,
       items: [],
       isModalOpen: false,
+      itemToUpdate: null,
     };
   }
 
@@ -39,7 +40,7 @@ class App extends Component<State> {
       fetch(API_URL + '/items')
         .then((response) => response.json())
         .then((data) => {
-          this.setState({ items: data, isLoading: false });
+          this.setState({ items: data, isLoading: false, itemToUpdate: null });
         });
     });
   }

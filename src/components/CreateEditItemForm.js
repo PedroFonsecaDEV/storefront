@@ -31,7 +31,7 @@ class CreateEditItemForm extends Component<Props, State> {
   }
 
   getHeaderText() {
-    return this.props.initialItem ? 'Update Item' : 'Add an Item';
+    return this.props.initialItem._id ? 'Update Item' : 'Add an Item';
   }
 
   handleNameChange(event) {
