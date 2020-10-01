@@ -19,7 +19,6 @@ type State = {
 class App extends Component<State> {
   constructor() {
     super();
-    this.fetchItems = this.fetchItems.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
