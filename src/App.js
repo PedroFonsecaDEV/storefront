@@ -45,6 +45,36 @@ class App extends Component<State> {
     });
   }
 
+  updateItem(id: string, name: string, price: number) {
+    fetch(API_URL + '/items/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        price,
+      }),
+    }).then((response) => {
+      this.fetchItems();
+    });
+  }
+
+  createItem(name: string, price: number) {
+    fetch(API_URL + '/items', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        price,
+      }),
+    }).then((response) => {
+      this.fetchItems();
+    });
+  }
+
   handleDelete(item: Item) {
     fetch(API_URL + '/items/' + item._id, { method: 'DELETE' }).then(
       (response) => {
@@ -56,31 +86,9 @@ class App extends Component<State> {
   handleSave(name: string, price: number, id?: string) {
     this.handleCloseModal();
     if (id) {
-      fetch(API_URL + '/items/' + id, {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          price,
-        }),
-      }).then((response) => {
-        this.fetchItems();
-      });
+      this.updateItem(id, name, price);
     } else {
-      fetch(API_URL + '/items', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          price,
-        }),
-      }).then((response) => {
-        this.fetchItems();
-      });
+      this.createItem(name, price);
     }
   }
 
