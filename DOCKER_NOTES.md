@@ -1,7 +1,11 @@
 BUILD:
-1 - docker build -t storefront:dev .
+1:
+ ``` 
+docker build -t storefront:dev . 
 ```
-2: docker run \
+2:
+```
+ docker run \
     -itd \
     --rm \
     -v ${PWD}:/app \
